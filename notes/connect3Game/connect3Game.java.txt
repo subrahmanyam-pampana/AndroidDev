@@ -1,0 +1,111 @@
+package com.game.connect3;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.gridlayout.widget.GridLayout;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import java.sql.Array;
+import java.util.Arrays;
+
+public class MainActivity extends AppCompatActivity {
+    //0:yellow 1:red,2:empty
+    int[] counterState = {2,2,2,2,2,2,2,2,2};
+    int[][] winningPositions = { {0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6} };
+    int activeUser = 0;
+    boolean gameActive = true;
+
+    public void dropIn(View view){
+
+        ImageView counter = (ImageView) view;
+
+        int tappedCounter = Integer.parseInt(counter.getTag().toString());
+
+
+        if(counterState[tappedCounter] == 2 && gameActive) {
+
+            counterState[tappedCounter] = activeUser;
+            String message = null;
+
+            for(int[] winingPosition : winningPositions){
+               if( counterState[winingPosition[0]]== counterState[winingPosition[1]] &&
+                       counterState[winingPosition[1]]== counterState[winingPosition[2]] &&
+                       counterState[winingPosition[0]] != 2){
+
+                   if(activeUser == 0){
+                       message = "Yellow";
+                   }else if(activeUser == 1){
+                       message = "Red";
+                   }
+                   Toast.makeText(this, message+" won the game!", Toast.LENGTH_SHORT).show();
+                   gameActive = false;
+                   TextView userMessage = (TextView) findViewById(R.id.messageText);
+                   Button playAgainButton = (Button) findViewById(R.id.playAgainButton);
+                   userMessage.setText(message+" Won the Game!");
+                   userMessage.setVisibility(View.VISIBLE);
+                   playAgainButton.setVisibility(View.VISIBLE);
+               }
+            }
+
+        if(activeUser == 0){
+            counter.setImageResource(R.drawable.yellow);
+            activeUser = 1;
+        }else if(activeUser == 1){
+            counter.setImageResource(R.drawable.red);
+            activeUser = 0;
+        }
+
+        counter.animate().rotationBy(3600).setDuration(2000);
+
+        Log.i("TappedIndex", String.valueOf(tappedCounter));
+
+        Log.i("counterState", Arrays.toString(counterState) );
+
+        }else if(gameActive == false){
+
+            Toast.makeText(this, "Game Over! Click on Play Again to Restart", Toast.LENGTH_SHORT).show();
+        }else{
+            counter.animate().rotationBy(3600).setDuration(2000);
+            Toast.makeText(this, "This Place already occupied", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void playAgain(View view) {
+        activeUser = 0; // making yellow as first user
+        gameActive = true; // making the game active
+
+        // reseting the the state array
+        for(int i=0;i<counterState.length;i++){
+            counterState[i] = 2;
+        }
+
+        //Resetting the Grid
+        GridLayout gridLayoutView = (GridLayout) findViewById(R.id.gridLayout);
+
+        for(int i=0; i< gridLayoutView.getChildCount();i++){
+            ImageView image = (ImageView) gridLayoutView.getChildAt(i);
+            image.setImageDrawable(null);
+        }
+         //Hiding the Buttons and text message
+        TextView userMessage = (TextView) findViewById(R.id.messageText);
+        Button playAgainButton = (Button) findViewById(R.id.playAgainButton);
+
+        userMessage.setVisibility(View.INVISIBLE);
+        playAgainButton.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
