@@ -1,0 +1,3 @@
+ MediaPlayer mediaPlayer; 
+mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier(btnPressed.getTag().toString(), "raw", getPackageName()));
+        mediaPlayer.start();
