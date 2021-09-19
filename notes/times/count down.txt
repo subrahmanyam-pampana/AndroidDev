@@ -1,0 +1,16 @@
+int finishTime = 10000;
+        int slowDownTime = 1000;
+
+        TextView textView  = findViewById(R.id.counterId);
+        textView.setText(String.valueOf(finishTime/slowDownTime));
+
+        new CountDownTimer(finishTime,slowDownTime){
+           public void onTick(long milliSecUntillDone){
+               Log.i("Time Left",String.valueOf(milliSecUntillDone/1000));
+               textView.setText(String.valueOf(milliSecUntillDone/1000));
+           }
+           public void  onFinish(){
+               Log.i("Time over","Time out");
+               textView.setText("Time Out");
+           }
+        }.start();
