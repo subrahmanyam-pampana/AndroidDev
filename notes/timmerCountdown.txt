@@ -1,0 +1,19 @@
+//using runnable method 
+
+TextView textView  = findViewById(R.id.counterId);
+
+        Handler handler = new Handler();
+
+        Runnable runnable = new Runnable() {
+            int counter = 0;
+            @Override
+            public void run() {
+                Log.i("Timmer","Hey I am running");
+
+                textView.setText(Integer.toString(counter));
+                counter++;
+
+                handler.postDelayed(this,1000);
+            }
+        };
+        handler.post(runnable);
