@@ -1,0 +1,195 @@
+MainActivity.java file
+
+-----------------------
+
+package com.example.instagramtestapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+import com.parse.ParseAnalytics;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+StartupApplication.java file
+
+package com.example.instagramtestapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Application;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+public class StarterApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        //setContentView(R.layout.activity_starter_application);
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        // Add your initialization code here
+        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
+                .applicationId("myappID")
+                .clientKey("ANdwXqUPWRE1")
+                .server("http://18.119.136.105/parse/")
+                .build()
+        );
+
+        ParseObject object = new ParseObject("Test");
+        object.put("myNumber", "123456");
+        object.put("myString", "Subrahmanyam");
+
+        object.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException ex) {
+                if (ex == null) {
+                    Log.i("Parse Result", "Successful!");
+                } else {
+                    Log.i("Parse Result", "Failed" + ex.toString());
+                }
+            }
+        });
+
+        //ParseUser.enableAutomaticUser();
+
+        ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicWriteAccess(true);
+        ParseACL.setDefaultACL(defaultACL, true);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+manifest.json
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.instagramtestapp">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".StarterApplication"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.InstagramTestApp"
+        tools:ignore="Instantiatable">
+        <activity android:name=".StarterApplication"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+
+-----------------------------------------------------------------------------------------------------------------------
+build.gradle(module)
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.2.1"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+repositories{
+    mavenCentral()
+    maven{
+        url'https://maven.google.com/'
+        name'Google'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven{
+            url'https://maven.google.com/'
+            name 'Google'
+        }
+       // Warning: this repository is going to shut down soon
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+-------------------------------------------------------------------------------------------------------------------
+build.gradle(project)
+
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.2.1"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+repositories{
+    mavenCentral()
+    maven{
+        url'https://maven.google.com/'
+        name'Google'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven{
+            url'https://maven.google.com/'
+            name 'Google'
+        }
+       // Warning: this repository is going to shut down soon
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
