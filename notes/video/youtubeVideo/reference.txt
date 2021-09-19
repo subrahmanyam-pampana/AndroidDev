@@ -1,0 +1,12 @@
+https://www.youtube.com/watch?v=lDosBozB9jw
+
+https://github.com/PierfrancescoSoffritti/android-youtube-player
+
+important code:
+
+ YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+ getLifecycle().addObserver(youTubePlayerView);
+
+package: add this package in gradle file: app
+
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.23'
