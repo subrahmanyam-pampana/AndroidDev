@@ -1,0 +1,21 @@
+serverURL: http://18.119.136.105/parse
+masterKey: ANdwxqUPWRE1
+appId:myappID
+appName:myDashboard
+
+use:user
+pass:ANdwxqUPWRE1
+
+
+
+{
+  "appId": "myappID",
+  "masterKey": "ANdwXqUPWRE1",
+  "appName": "parse-server",
+  "mountPath": "/parse",
+  "port": "1337",
+  "host": "127.0.0.1",
+  "serverURL": "http://127.0.0.1/parse",
+  "databaseURI": "mongodb://bn_parse:ANdwXqUPWRE1@127.0.0.1:27017/bitnami_parse"
+}
+
