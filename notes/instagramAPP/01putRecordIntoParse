@@ -1,0 +1,15 @@
+ ParseObject score = new ParseObject( "Score");
+        score.put("Name","Subrahmanyam");
+        score.put("Score",60);
+
+        score.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    //OK
+                    Toast.makeText(MainActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
+                }else{
+                    e.printStackTrace();
+                }
+            }
+        });
