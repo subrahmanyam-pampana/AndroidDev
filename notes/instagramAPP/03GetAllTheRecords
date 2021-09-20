@@ -1,0 +1,14 @@
+ ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Score");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(e == null){
+                    if(objects.size() > 0){
+                        for(ParseObject object : objects){
+                            Log.i("Name",object.getString("Name"));
+                            Log.i("score",Integer.toString(object.getInt("Score")));
+                        }
+                    }
+                }
+            }
+        });
