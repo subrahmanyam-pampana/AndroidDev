@@ -1,0 +1,11 @@
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("Score");
+        query.getInBackground("rZ801R1vdl", new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if(e == null && object != null){
+                    Log.i("success",object.getString("Name"));
+                    Log.i("success",Integer.toString(object.getInt("Score")));
+                }
+
+            }
+        });
