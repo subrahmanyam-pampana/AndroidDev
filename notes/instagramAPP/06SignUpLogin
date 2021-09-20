@@ -1,0 +1,49 @@
+//create a user , signUp
+
+     ParseUser user = new ParseUser();
+        user.setUsername("subbu");
+        user.setPassword("Manju@123");
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                  Log.i("SignUp","Signed up")  ;
+
+                }else{
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+   //Login A User
+ // ----------------------------------------------------------------------------------------
+   
+    ParseUser.logInInBackground("subbu", "Manju@123", new LogInCallback() {
+          @Override
+          public void done(ParseUser user, ParseException e) {
+              if(user != null){
+                  Log.i("LogIn","Loged in Successfully");
+              }else{
+                  e.printStackTrace();
+              }
+          }
+      });
+      
+      
+ //Check Logged in Or not
+  // ----------------------------------------------------------------------------------------
+   if(ParseUser.getCurrentUser() != null){
+          Log.i("current User",ParseUser.getCurrentUser().getUsername());
+      }else{
+          Log.i("error","Logged out");
+      }
+      
+            
+ /Log out user
+  // ----------------------------------------------------------------------------------------
+      
+      ParseUser.logOut();
+      
+      
+ 
+        
