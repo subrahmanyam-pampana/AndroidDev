@@ -1,0 +1,21 @@
+ ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Score");
+        query.whereGreaterThan("Score",50);//where condition to filter
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(e == null){
+                    if(objects.size() > 0){
+                        for(ParseObject object : objects){
+
+                            //updating Score with +20
+                            object.put("Score",object.getInt("Score") + 20);
+                            object.saveInBackground();
+
+                            Log.i("Name",object.getString("Name"));
+                            Log.i("score",Integer.toString(object.getInt("Score")));
+                        }
+                    }
+                }
+            }
+        });
