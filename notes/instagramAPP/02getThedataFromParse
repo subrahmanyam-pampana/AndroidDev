@@ -3,6 +3,11 @@
             @Override
             public void done(ParseObject object, ParseException e) {
                 if(e == null && object != null){
+                    //update the Score
+                      object.put("Score",100);
+                    object.saveInBackground();
+                    
+                    //get the data
                     Log.i("success",object.getString("Name"));
                     Log.i("success",Integer.toString(object.getInt("Score")));
                 }
