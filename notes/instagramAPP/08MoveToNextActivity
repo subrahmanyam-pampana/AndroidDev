@@ -1,0 +1,4 @@
+ public void startUserListActivity(){
+        Intent intent = new Intent(getApplicationContext(),userListActivity.class);
+        startActivity(intent);
+    }
