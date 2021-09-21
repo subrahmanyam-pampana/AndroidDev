@@ -44,6 +44,40 @@
       
       ParseUser.logOut();
       
+  //Switch between Login and Sign up
+  // ----------------------------------------------------------------------------------------
+  //implements View.OnClickListener
+  public class MainActivity extends AppCompatActivity implements View.OnClickListener 
+  
+    Boolean signUpActive = true;
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.loginTextView){
+          //  Log.i("loginTextView","LoginTextView");
+
+            Button signupButtonView = findViewById(R.id.signUpButton);
+            TextView loginTextView = findViewById(R.id.loginTextView);
+
+            if(signUpActive){
+                //change to login
+
+                loginTextView.setText("or, Sign up");
+                signupButtonView.setText("Login");
+                signUpActive = false;
+            }else{
+                //change to signup
+                loginTextView.setText("or, Login");
+                signupButtonView.setText("Sign Up");
+                signUpActive = true;
+            }
+
+        }
+    }  
+  
+  //inside oncreate method
+    TextView loginTextView = findViewById(R.id.loginTextView);
+        loginTextView.setOnClickListener(this);
+      
       
  
         
