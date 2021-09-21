@@ -1,0 +1,22 @@
+ //Hide Key board
+ InputMethodManager inputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+  inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+  
+//on click of Enter Button add some event listeaner
+//implements View.OnKeyListener
+public class MainActivity extends AppCompatActivity implements View.OnKeyListener
+  @Override
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+        if(i == keyEvent.KEYCODE_ENTER && keyEvent.getAction() == keyEvent.ACTION_DOWN){
+            signUp(view);
+        }
+        return false;
+    }
+    
+    //adding the event listeaner
+    //add below code inside oncreate function
+    
+        RelativeLayout relativeLayout = findViewById(R.id.ralativeLayoutBackground);
+        ImageView imageView = findViewById(R.id.logoImageView);
+        relativeLayout.setOnClickListener(this);
+        imageView.setOnClickListener(this);
