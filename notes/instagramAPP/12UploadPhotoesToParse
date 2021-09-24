@@ -1,0 +1,55 @@
+      public void getPhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 1);
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getPhoto();
+            }
+        }
+    }
+  
+  @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Uri selectedImage = data.getData();
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+                bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+
+                byte[] byteArray = stream.toByteArray();
+                ParseFile imageFile  =  new ParseFile("Myimage.png",byteArray);
+
+                ParseObject imgobject = new ParseObject("Image");
+                imgobject.put("image",imageFile);
+                imgobject.put("username",ParseUser.getCurrentUser().getUsername());
+
+                imgobject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Toast.makeText(userListActivity.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            Toast.makeText(userListActivity.this, "Problem in Uploading the Image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+               // ImageView imageView = findViewById(R.id.userImageView);
+              // imageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
