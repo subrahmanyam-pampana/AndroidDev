@@ -2,4 +2,7 @@ cd stack/parse
 vim config.json
   press 'esc' key to exit from edit mode
   type :wq! to over write the existing cofig file
-to view the content type 'cat config.json'   
+to view the content type 'cat config.json'  
+
+restart the parse server
+sudo ./ctlscript.sh restart parse
