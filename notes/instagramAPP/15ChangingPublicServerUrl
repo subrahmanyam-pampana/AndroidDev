@@ -1,0 +1,30 @@
+for windows users Open putty and follow below steps to set the publucServerURL
+
+1.after successfully logged into bitnami type below command and hit enter
+
+cd stack/parse
+
+2.now we are in the parse directory. enter below code to open the config file in vim
+
+vim config.json
+
+3. it will open the config file, Now press 'a' to inter into insert mode (you can press any key here)
+
+4.enter below lines at the end in your config file. here <your parse server IP> is what you see in your browser. i.e something like 18.129.175.107
+
+"parseServerURL":"http://<your parse server IP>:80/parse"
+
+5.press esc button and enter below code
+
+:wq!
+
+6. now we need to restart the parse server. for the we need to go back to stack directory. so type below code to go back to stack directory
+
+cd ..
+
+7. now type below code to restart the parse server
+
+sudo ./ctlscript.sh restart parse
+
+8.done
+
