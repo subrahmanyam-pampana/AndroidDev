@@ -1,0 +1,52 @@
+public void showImages(String userName){
+    ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Image");
+
+    query.whereEqualTo("username",userName);
+    query.orderByDescending("createdAt");
+
+    query.findInBackground(new FindCallback<ParseObject>() {
+        @Override
+        public void done(List<ParseObject> objects, ParseException e) {
+            if (e == null && objects.size() > 0) {
+                Log.i("objects",Integer.toString(objects.size()));
+                //if(objects.size() != 0){
+                for (ParseObject object : objects) {
+                    ParseFile file = (ParseFile) object.get("image");
+
+                    Log.i("imageUrl", file.getUrl());
+
+                    file.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] data, ParseException e) {
+                            if (e == null && data != null) {
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                                ImageView imageView = new ImageView(getApplicationContext());
+
+                                imageView.setLayoutParams(new ViewGroup.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT
+                                ));
+                                imageView.setImageBitmap(bitmap);
+
+                                layout.addView(imageView);
+                            } else {
+                                e.printStackTrace();
+                                Toast.makeText(userImagesActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                } //for loop end
+
+            } else {
+                // Log.i("error getting image","error");
+                e.printStackTrace();
+
+                //   Toast.makeText(userImagesActivity.this, "No Images Found!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    });
+}
