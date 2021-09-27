@@ -1,0 +1,2 @@
+ mMap.addMarker(new MarkerOptions().position(everest).title("Everest").
+                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
