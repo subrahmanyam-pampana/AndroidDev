@@ -1,0 +1,1 @@
+ mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
