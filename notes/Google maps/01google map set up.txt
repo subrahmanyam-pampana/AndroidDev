@@ -1,4 +1,5 @@
-we need atleast API level 23 to use Google maps
+1.we need atleast API level 23 to use Google maps
+2.we need Google API setup
 
 problem 1: Android Studio error "Installed Build Tools revision 31.0.0 is corrupted"
 https://stackoverflow.com/questions/68387270/android-studio-error-installed-build-tools-revision-31-0-0-is-corrupted
