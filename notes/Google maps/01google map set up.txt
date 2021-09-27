@@ -1,0 +1,1 @@
+we need atleast API level 23 to use Google maps
