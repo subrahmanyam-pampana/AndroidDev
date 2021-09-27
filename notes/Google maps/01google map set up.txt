@@ -1,1 +1,19 @@
 we need atleast API level 23 to use Google maps
+
+problem 1: Android Studio error "Installed Build Tools revision 31.0.0 is corrupted"
+https://stackoverflow.com/questions/68387270/android-studio-error-installed-build-tools-revision-31-0-0-is-corrupted
+
+problem 2: Manifest merger failed targeting Android 12
+In manifest.xml file add "android:exported="true" where activity uses  <intent-filter>
+example: 
+ <activity
+            android:name=".MapsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+https://stackoverflow.com/questions/67654506/manifest-merger-failed-targeting-android-12/67668116#67668116
